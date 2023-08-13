@@ -39,10 +39,10 @@ function App({ toggleTheme }: AppPT) {
 
   return (
     <StyledApp
-      direction={"column"}
-      align={"center"}
-      justify={"center"}
-      gap={"20px"}
+      $direction={"column"}
+      $align={"center"}
+      $justify={"center"}
+      $gap={"20px"}
     >
       <Button callback={toggleTheme} color={"main"}>
         toggle theme
@@ -50,7 +50,7 @@ function App({ toggleTheme }: AppPT) {
       <Button callback={addCounter} color={"main"}>
         Add counter
       </Button>
-      <Counters justify={"center"} gap={"10px"} wrap={"wrap"}>
+      <Counters $justify={"center"} $gap={"10px"} $wrap={"wrap"}>
         {counters.map((el) => (
           <Counter
             key={el.id}

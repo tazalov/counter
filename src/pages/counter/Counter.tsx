@@ -24,7 +24,7 @@ export const Counter: FC<CounterT & CounterPT> = ({
   return (
     <StyledCounter>
       <StyledRemove>
-        <Button callback={remove} noBorder>
+        <Button callback={remove} $border={false}>
           X
         </Button>
       </StyledRemove>

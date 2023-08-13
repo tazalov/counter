@@ -31,13 +31,12 @@ export const Setter: FC<SetterPT> = ({
     setMax(newMax);
     setError(newMax <= min ? "Max value can not be more min value" : "");
   };
-  console.log(error);
   return (
     <StyledSetter
-      direction={"column"}
-      align={"center"}
-      justify={"center"}
-      gap={"20px"}
+      $direction={"column"}
+      $align={"center"}
+      $justify={"center"}
+      $gap={"20px"}
     >
       <StyledForm>
         <StyledTitle>MIN</StyledTitle>
@@ -46,7 +45,7 @@ export const Setter: FC<SetterPT> = ({
           value={min || ""}
           onChange={changeMinHandler}
           placeholder={"enter min"}
-          error={error}
+          $error={error}
         />
       </StyledForm>
       <StyledForm>
@@ -56,7 +55,7 @@ export const Setter: FC<SetterPT> = ({
           value={max || ""}
           onChange={changeMaxHandler}
           placeholder={"enter max"}
-          error={error}
+          $error={error}
         />
       </StyledForm>
       {error && <StyledError>{error}</StyledError>}
@@ -82,9 +81,10 @@ const StyledTitle = styled.h3`
   ${Frag.Subtitle}
   color: ${(props) => props.theme.primaryFont};
   margin-bottom: 10px;
+  text-align: center;
 `;
 
-const StyledInput = styled.input<{ error: string }>`
+const StyledInput = styled.input<{ $error: string }>`
   ${Frag.Border};
   border-radius: 10px;
   padding: 5px;
@@ -93,13 +93,13 @@ const StyledInput = styled.input<{ error: string }>`
   color: ${(props) => props.theme.primaryFont};
   background-color: ${(props) => props.theme.secondaryBg};
   &:focus-visible {
-    outline: 2px solid ${(props) => (props.error ? "#f65757" : "grey")};
+    outline: 2px solid ${(props) => (props.$error ? "#f65757" : "grey")};
   }
   &::placeholder {
     color: ${(props) => props.theme.primaryFont};
   }
   ${(props) =>
-    props.error &&
+    props.$error &&
     css`
       border: 3px solid #f65757;
     `}
@@ -110,4 +110,5 @@ const StyledError = styled.div`
   color: #f65757;
   font-size: 14px;
   text-align: center;
+  font-weight: bold;
 `;

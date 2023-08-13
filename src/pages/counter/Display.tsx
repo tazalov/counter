@@ -17,21 +17,21 @@ export const Display: FC<DisplayPT> = ({ min, max, toggleIsData }) => {
   const reset = () => setCount(min);
   return (
     <StyledDisplay
-      direction={"column"}
-      align={"center"}
-      justify={"center"}
-      gap={"20px"}
+      $direction={"column"}
+      $align={"center"}
+      $justify={"center"}
+      $gap={"20px"}
     >
       <StyledCount current={count} max={max}>
         {count}
       </StyledCount>
       <StyledButtons
-        direction={"column"}
-        align={"center"}
-        justify={"center"}
-        gap={"20px"}
+        $direction={"column"}
+        $align={"center"}
+        $justify={"center"}
+        $gap={"20px"}
       >
-        <Common.FlexWrapper align={"center"} justify={"center"} gap={"10px"}>
+        <Common.FlexWrapper $align={"center"} $justify={"center"} $gap={"10px"}>
           <Button callback={incrCount} disabled={count >= max}>
             incr
           </Button>
@@ -39,7 +39,7 @@ export const Display: FC<DisplayPT> = ({ min, max, toggleIsData }) => {
             decr
           </Button>
         </Common.FlexWrapper>
-        <Common.FlexWrapper align={"center"} justify={"center"} gap={"10px"}>
+        <Common.FlexWrapper $align={"center"} $justify={"center"} $gap={"10px"}>
           <Button callback={reset} disabled={count === min}>
             reset
           </Button>
