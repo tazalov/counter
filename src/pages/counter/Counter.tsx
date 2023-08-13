@@ -1,12 +1,13 @@
-import {FC, useState} from 'react';
-import {Setter} from './Setter';
-import styled from 'styled-components';
-import {Display} from './Display';
-import {CounterT} from '../../App';
-import {Button} from '../components/button/Button';
+import { FC, useState } from "react";
+import { Setter } from "./Setter";
+import styled from "styled-components";
+import { Display } from "./Display";
+import { CounterT } from "../../App";
+import { Button } from "../../components/button/Button";
+import { Frag } from "../../components/styled/Fragments.styled";
 
 type CounterPT = {
-  removeCounter: (counterId: number) => void;
+  removeCounter: (counterId: string) => void;
 };
 
 export const Counter: FC<CounterT & CounterPT> = ({
@@ -18,39 +19,39 @@ export const Counter: FC<CounterT & CounterPT> = ({
   const [isData, setIsData] = useState<boolean>(false);
   const [min, setMin] = useState<number>(minV);
   const [max, setMax] = useState<number>(maxV);
-  const toggleIsData = () => setIsData(prev => !prev);
+  const toggleIsData = () => setIsData((prev) => !prev);
   const remove = () => removeCounter(id);
   return (
-      <StyledCounter>
-        <StyledWrapper>
-          <Button callback={remove}>
-            remove
-          </Button>
-          {!isData &&
-              <Setter min={min} setMin={setMin} max={max} setMax={setMax}
-                      toggleIsData={toggleIsData}/>}
-          {isData && <Display min={min} max={max} toggleIsData={toggleIsData}/>}
-        </StyledWrapper>
-      </StyledCounter>
+    <StyledCounter>
+      <StyledRemove>
+        <Button callback={remove} noBorder>
+          X
+        </Button>
+      </StyledRemove>
+      {!isData && (
+        <Setter
+          min={min}
+          setMin={setMin}
+          max={max}
+          setMax={setMax}
+          toggleIsData={toggleIsData}
+        />
+      )}
+      {isData && <Display min={min} max={max} toggleIsData={toggleIsData} />}
+    </StyledCounter>
   );
 };
 
 const StyledCounter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${Frag.Shadow};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.secondaryBg};
+  padding: 10px;
+  position: relative;
 `;
 
-const StyledWrapper = styled.div`
-  border-radius: 10px;
-  padding: 30px;
-  width: 500px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  gap: 10px;
-  background-color: ${props => props.theme.secondaryBg};
+const StyledRemove = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
