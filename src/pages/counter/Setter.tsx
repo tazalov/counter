@@ -1,5 +1,5 @@
-import { ChangeEvent, FC } from "react";
-import styled from "styled-components";
+import { ChangeEvent, FC, useState } from "react";
+import styled, { css } from "styled-components";
 import { Button } from "../../components/button/Button";
 import { Common } from "../../components/styled/Common.styled";
 import { Frag } from "../../components/styled/Fragments.styled";
@@ -19,12 +19,19 @@ export const Setter: FC<SetterPT> = ({
   setMax,
   toggleIsData,
 }) => {
+  const [error, setError] = useState<string>("");
+
   const changeMinHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setMin(+e.currentTarget.value);
+    const newMin = +e.currentTarget.value;
+    setMin(newMin);
+    setError(newMin >= max ? "Min value can not be more than max value" : "");
   };
   const changeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setMax(+e.currentTarget.value);
+    const newMax = +e.currentTarget.value;
+    setMax(newMax);
+    setError(newMax <= min ? "Max value can not be more min value" : "");
   };
+  console.log(error);
   return (
     <StyledSetter
       direction={"column"}
@@ -39,6 +46,7 @@ export const Setter: FC<SetterPT> = ({
           value={min || ""}
           onChange={changeMinHandler}
           placeholder={"enter min"}
+          error={error}
         />
       </StyledForm>
       <StyledForm>
@@ -48,9 +56,13 @@ export const Setter: FC<SetterPT> = ({
           value={max || ""}
           onChange={changeMaxHandler}
           placeholder={"enter max"}
+          error={error}
         />
       </StyledForm>
-      <Button callback={toggleIsData}>SET DATA</Button>
+      {error && <StyledError>{error}</StyledError>}
+      <Button callback={toggleIsData} disabled={min >= max}>
+        SET DATA
+      </Button>
     </StyledSetter>
   );
 };
@@ -66,7 +78,13 @@ const StyledForm = styled.div`
   width: 100%;
 `;
 
-const StyledInput = styled.input`
+const StyledTitle = styled.h3`
+  ${Frag.Subtitle}
+  color: ${(props) => props.theme.primaryFont};
+  margin-bottom: 10px;
+`;
+
+const StyledInput = styled.input<{ error: string }>`
   ${Frag.Border};
   border-radius: 10px;
   padding: 5px;
@@ -75,15 +93,21 @@ const StyledInput = styled.input`
   color: ${(props) => props.theme.primaryFont};
   background-color: ${(props) => props.theme.secondaryBg};
   &:focus-visible {
-    outline: 5px solid grey;
+    outline: 2px solid ${(props) => (props.error ? "#f65757" : "grey")};
   }
   &::placeholder {
     color: ${(props) => props.theme.primaryFont};
   }
+  ${(props) =>
+    props.error &&
+    css`
+      border: 3px solid #f65757;
+    `}
 `;
 
-const StyledTitle = styled.h3`
-  ${Frag.Subtitle}
-  color: ${(props) => props.theme.primaryFont};
-  margin-bottom: 10px;
+const StyledError = styled.div`
+  padding: 5px;
+  color: #f65757;
+  font-size: 14px;
+  text-align: center;
 `;
