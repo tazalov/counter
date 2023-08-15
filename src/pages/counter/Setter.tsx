@@ -9,6 +9,7 @@ type SetterPT = {
   max: number;
   setMin: (value: number) => void;
   setMax: (value: number) => void;
+  setCurrent: (value: number) => void;
   toggleIsData: () => void;
 };
 
@@ -17,6 +18,7 @@ export const Setter: FC<SetterPT> = ({
   max,
   setMin,
   setMax,
+  setCurrent,
   toggleIsData,
 }) => {
   const [error, setError] = useState<string>("");
@@ -24,12 +26,17 @@ export const Setter: FC<SetterPT> = ({
   const changeMinHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMin = +e.currentTarget.value;
     setMin(newMin);
+    setCurrent(newMin);
     setError(newMin >= max ? "Min value can not be more than max value" : "");
   };
   const changeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMax = +e.currentTarget.value;
     setMax(newMax);
     setError(newMax <= min ? "Max value can not be more min value" : "");
+  };
+
+  const setData = () => {
+    toggleIsData();
   };
   return (
     <StyledSetter
@@ -59,7 +66,7 @@ export const Setter: FC<SetterPT> = ({
         />
       </StyledForm>
       {error && <StyledError>{error}</StyledError>}
-      <Button callback={toggleIsData} disabled={min >= max}>
+      <Button callback={setData} disabled={min >= max}>
         SET DATA
       </Button>
     </StyledSetter>

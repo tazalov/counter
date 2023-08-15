@@ -12,12 +12,10 @@ export const Index: FC = () => {
   const toggleTheme = () =>
     setTheme((prev) => (prev === lightTheme ? darkTheme : lightTheme));
   return (
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App toggleTheme={toggleTheme} />
-      </ThemeProvider>
-    </React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <App toggleTheme={toggleTheme} />
+    </ThemeProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { Button } from "../../components/button/Button";
 import { Frag } from "../../components/styled/Fragments.styled";
@@ -7,14 +7,22 @@ import { Common } from "../../components/styled/Common.styled";
 type DisplayPT = {
   min: number;
   max: number;
+  current: number;
+  incr: () => void;
+  decr: () => void;
+  reset: () => void;
   toggleIsData: () => void;
 };
 
-export const Display: FC<DisplayPT> = ({ min, max, toggleIsData }) => {
-  const [count, setCount] = useState<number>(min);
-  const incrCount = () => setCount((prev) => prev + 1);
-  const decrCount = () => setCount((prev) => prev - 1);
-  const reset = () => setCount(min);
+export const Display: FC<DisplayPT> = ({
+  min,
+  max,
+  current,
+  incr,
+  decr,
+  reset,
+  toggleIsData,
+}) => {
   return (
     <StyledDisplay
       $direction={"column"}
@@ -22,8 +30,8 @@ export const Display: FC<DisplayPT> = ({ min, max, toggleIsData }) => {
       $justify={"center"}
       $gap={"20px"}
     >
-      <StyledCount current={count} max={max}>
-        {count}
+      <StyledCount current={current} max={max}>
+        {current}
       </StyledCount>
       <StyledButtons
         $direction={"column"}
@@ -32,15 +40,15 @@ export const Display: FC<DisplayPT> = ({ min, max, toggleIsData }) => {
         $gap={"20px"}
       >
         <Common.FlexWrapper $align={"center"} $justify={"center"} $gap={"10px"}>
-          <Button callback={incrCount} disabled={count >= max}>
+          <Button callback={incr} disabled={current >= max}>
             incr
           </Button>
-          <Button callback={decrCount} disabled={count <= min}>
+          <Button callback={decr} disabled={current <= min}>
             decr
           </Button>
         </Common.FlexWrapper>
         <Common.FlexWrapper $align={"center"} $justify={"center"} $gap={"10px"}>
-          <Button callback={reset} disabled={count === min}>
+          <Button callback={reset} disabled={current === min}>
             reset
           </Button>
           <Button callback={toggleIsData}>change data</Button>
