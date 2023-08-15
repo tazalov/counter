@@ -26,16 +26,10 @@ export const Counter: FC = ({}) => {
   }, [current, min, max]);
 
   const incrCount = () => {
-    setCurrent((prev) => {
-      const newCurrentValue = prev + 1;
-      return newCurrentValue;
-    });
+    setCurrent((prev) => prev + 1);
   };
   const decrCount = () => {
-    setCurrent((prev) => {
-      const newCurrentValue = prev - 1;
-      return newCurrentValue;
-    });
+    setCurrent((prev) => prev - 1);
   };
   const reset = () => setCurrent(min);
 
@@ -75,6 +69,8 @@ const StyledCounter = styled.div`
   background-color: ${(props) => props.theme.secondaryBg};
   padding: 10px;
   position: relative;
+  max-width: 400px;
+  margin: 0 auto;
 `;
 
 const StyledRemove = styled.div`

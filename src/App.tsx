@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Counter } from "./pages/counter/Counter";
 import { Button } from "./components/button/Button";
 import { Common } from "./components/styled/Common.styled";
+import { Counter2 } from "./pages/counter2/Counter2";
 
 type AppPT = {
   toggleTheme: () => void;
@@ -18,8 +19,14 @@ function App({ toggleTheme }: AppPT) {
       <Button callback={toggleTheme} color={"main"}>
         toggle theme
       </Button>
-      <Counters $justify={"center"} $gap={"10px"} $wrap={"wrap"}>
+      <Counters
+        $justify={"center"}
+        $gap={"10px"}
+        $wrap={"wrap"}
+        $direction={"column"}
+      >
         <Counter />
+        <Counter2 />
       </Counters>
     </StyledApp>
   );

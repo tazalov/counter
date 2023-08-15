@@ -14,8 +14,16 @@ const Border = css`
   border: 3px solid ${(props) => props.theme.primaryBg};
 `;
 
+const Text = css`
+  padding: 5px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+`;
+
 export const Frag = {
   Subtitle,
   Shadow,
   Border,
+  Text,
 };

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import styled, { css } from "styled-components";
 import { Button } from "../../components/button/Button";
 import { Common } from "../../components/styled/Common.styled";
@@ -10,20 +10,23 @@ type SetterPT = {
   setMin: (value: number) => void;
   setMax: (value: number) => void;
   setCurrent: (value: number) => void;
-  toggleIsData: () => void;
+  setIsData: (value: boolean) => void;
+  error: string;
+  setError: (value: string) => void;
 };
 
-export const Setter: FC<SetterPT> = ({
+export const Setter2: FC<SetterPT> = ({
   min,
   max,
   setMin,
   setMax,
   setCurrent,
-  toggleIsData,
+  setIsData,
+  error,
+  setError,
 }) => {
-  const [error, setError] = useState<string>("");
-
   const changeMinHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsData(true);
     const newMin = +e.currentTarget.value;
     setMin(newMin);
     setCurrent(newMin);
@@ -34,6 +37,7 @@ export const Setter: FC<SetterPT> = ({
     );
   };
   const changeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsData(true);
     const newMax = +e.currentTarget.value;
     setMax(newMax);
     setError(
@@ -43,9 +47,6 @@ export const Setter: FC<SetterPT> = ({
     );
   };
 
-  const setData = () => {
-    toggleIsData();
-  };
   return (
     <StyledSetter
       $direction={"column"}
@@ -73,8 +74,10 @@ export const Setter: FC<SetterPT> = ({
           $error={error}
         />
       </StyledForm>
-      {error && <StyledError>{error}</StyledError>}
-      <Button callback={setData} disabled={min >= max || !!error}>
+      <Button
+        callback={() => setIsData(false)}
+        disabled={min >= max || !!error}
+      >
         SET DATA
       </Button>
     </StyledSetter>
@@ -82,7 +85,10 @@ export const Setter: FC<SetterPT> = ({
 };
 
 const StyledSetter = styled(Common.FlexWrapper)`
-  padding: 15px;
+  ${Frag.Shadow};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.secondaryBg};
+  padding: 10px;
 `;
 
 const StyledForm = styled.div`
@@ -118,12 +124,4 @@ const StyledInput = styled.input<{ $error: string }>`
     css`
       border: 3px solid #f65757;
     `}
-`;
-
-const StyledError = styled.div`
-  padding: 5px;
-  color: #f65757;
-  font-size: 14px;
-  text-align: center;
-  font-weight: bold;
 `;
