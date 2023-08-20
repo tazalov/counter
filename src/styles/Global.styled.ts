@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -23,8 +23,8 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1;
     font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Arial', sans-serif;
     font-size: 16px;
-    color: ${(props) => props.theme.primaryFont};
-    background: ${(props) => props.theme.primaryBg};
+    color: ${props => props.theme.primaryFont};
+    background: ${props => props.theme.primaryBg};
   }
   input,
   button,
@@ -60,4 +60,4 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: inherit;
     font-size: inherit;
   }
-`;
+`

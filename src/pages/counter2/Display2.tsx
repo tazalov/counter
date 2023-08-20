@@ -1,19 +1,19 @@
-import { FC } from "react";
-import styled from "styled-components";
-import { Button } from "../../components/button/Button";
-import { Frag } from "../../components/styled/Fragments.styled";
-import { Common } from "../../components/styled/Common.styled";
+import { FC } from 'react'
+import styled from 'styled-components'
+import { Button } from '../../components/button/Button'
+import { Common } from '../../components/styled/Common.styled'
+import { Frag } from '../../components/styled/Fragments.styled'
 
 type DisplayPT = {
-  min: number;
-  max: number;
-  current: number;
-  incr: () => void;
-  decr: () => void;
-  reset: () => void;
-  isData: boolean;
-  error: string;
-};
+  min: number
+  max: number
+  current: number
+  incr: () => void
+  decr: () => void
+  reset: () => void
+  isData: boolean
+  error: string
+}
 
 export const Display2: FC<DisplayPT> = ({
   min,
@@ -26,12 +26,7 @@ export const Display2: FC<DisplayPT> = ({
   error,
 }) => {
   return (
-    <StyledDisplay
-      $direction={"column"}
-      $align={"center"}
-      $justify={"center"}
-      $gap={"20px"}
-    >
+    <StyledDisplay $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
       {error ? (
         <StyledError>{error}</StyledError>
       ) : isData ? (
@@ -41,13 +36,8 @@ export const Display2: FC<DisplayPT> = ({
           {current}
         </StyledCount>
       )}
-      <StyledButtons
-        $direction={"column"}
-        $align={"center"}
-        $justify={"center"}
-        $gap={"20px"}
-      >
-        <Common.FlexWrapper $align={"center"} $justify={"center"} $gap={"10px"}>
+      <StyledButtons $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
+        <Common.FlexWrapper $align={'center'} $justify={'center'} $gap={'10px'}>
           <Button callback={incr} disabled={isData || current >= max}>
             incr
           </Button>
@@ -60,43 +50,42 @@ export const Display2: FC<DisplayPT> = ({
         </Common.FlexWrapper>
       </StyledButtons>
     </StyledDisplay>
-  );
-};
+  )
+}
 
 type StyledCountT = {
-  current: number;
-  max: number;
-};
+  current: number
+  max: number
+}
 
 const StyledCount = styled.div<StyledCountT>`
   ${Frag.Border};
   border-radius: 10px;
-  color: ${(props) =>
-    props.current >= props.max ? "#f65757" : props.theme.primaryFont};
+  color: ${props => (props.current >= props.max ? '#f65757' : props.theme.primaryFont)};
   font-size: 80px;
   text-align: center;
   padding: 10px;
   width: 100%;
-`;
+`
 
 const StyledDisplay = styled(Common.FlexWrapper)`
   ${Frag.Shadow};
   border-radius: 10px;
-  background-color: ${(props) => props.theme.secondaryBg};
+  background-color: ${props => props.theme.secondaryBg};
   padding: 10px;
-`;
+`
 
 const StyledButtons = styled(Common.FlexWrapper)`
   ${Frag.Border};
   border-radius: 10px;
   padding: 10px;
-`;
+`
 
 const StyledError = styled.div`
   ${Frag.Text};
   color: #f65757;
-`;
+`
 
 const StyledText = styled.div`
   ${Frag.Text};
-`;
+`
