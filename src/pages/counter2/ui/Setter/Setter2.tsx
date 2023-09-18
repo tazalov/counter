@@ -15,11 +15,10 @@ interface SetterPT {
 export const Setter2: FC<SetterPT> = ({ min, max, error, setError }) => {
   const dispatch = useAppDispatch()
 
-  const activateEditMode = () => dispatch(toggleDataSet2(false))
   const deactivateEditMode = () => dispatch(toggleDataSet2(true))
 
-  const changeMinHandler = (value: number) => {
-    activateEditMode()
+  const handleChangeMin = (value: number) => {
+    dispatch(toggleDataSet2(false))
 
     const valueIsMaxSafe = min >= Number.MAX_SAFE_INTEGER
     const valueIsNotValid = value < 0 || value >= max || max < 0 || max <= value
@@ -33,8 +32,8 @@ export const Setter2: FC<SetterPT> = ({ min, max, error, setError }) => {
       setError('')
     }
   }
-  const changeMaxHandler = (value: number) => {
-    activateEditMode()
+  const handleChangeMax = (value: number) => {
+    dispatch(toggleDataSet2(false))
 
     const valueIsMaxSafe = max >= Number.MAX_SAFE_INTEGER
     const valueIsNotValid = min < 0 || min >= value || value < 0 || value <= min
@@ -52,20 +51,8 @@ export const Setter2: FC<SetterPT> = ({ min, max, error, setError }) => {
 
   return (
     <S.Setter $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
-      <SetterForm
-        title={'MIN'}
-        value={min}
-        changeValue={changeMinHandler}
-        placeholder={'enter min'}
-        error={error}
-      />
-      <SetterForm
-        title={'MAX'}
-        value={max}
-        changeValue={changeMaxHandler}
-        placeholder={'enter max'}
-        error={error}
-      />
+      <SetterForm title={'MIN'} value={min} changeValue={handleChangeMin} error={error} />
+      <SetterForm title={'MAX'} value={max} changeValue={handleChangeMax} error={error} />
       <Button callback={deactivateEditMode} disabled={min >= max || !!error}>
         SET DATA
       </Button>

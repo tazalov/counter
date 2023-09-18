@@ -16,7 +16,7 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
   const dispatch = useAppDispatch()
   const [error, setError] = useState<string>('')
 
-  const changeMinHandler = (value: number) => {
+  const handleChangeMin = (value: number) => {
     const valueIsMaxSafe = min >= Number.MAX_SAFE_INTEGER
     const valueIsNotValid = value < 0 || value >= max || max < 0 || max <= value
 
@@ -29,7 +29,7 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
       setError('')
     }
   }
-  const changeMaxHandler = (value: number) => {
+  const handleChangeMax = (value: number) => {
     const valueIsMaxSafe = max >= Number.MAX_SAFE_INTEGER
     const valueIsNotValid = min < 0 || min >= value || value < 0 || value <= min
 
@@ -44,27 +44,12 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
     }
   }
 
-  const setData = () => {
-    toggleIsData()
-  }
   return (
     <Common.FlexWrapper $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
-      <SetterForm
-        title={'MIN'}
-        value={min}
-        changeValue={changeMinHandler}
-        placeholder={'enter min'}
-        error={error}
-      />
-      <SetterForm
-        title={'MAX'}
-        value={max}
-        changeValue={changeMaxHandler}
-        placeholder={'enter max'}
-        error={error}
-      />
+      <SetterForm title={'MIN'} value={min} changeValue={handleChangeMin} error={error} />
+      <SetterForm title={'MAX'} value={max} changeValue={handleChangeMax} error={error} />
       {error && <S.Error>{error}</S.Error>}
-      <Button callback={setData} disabled={min >= max || !!error}>
+      <Button callback={toggleIsData} disabled={min >= max || !!error}>
         SET DATA
       </Button>
     </Common.FlexWrapper>

@@ -10,9 +10,17 @@ interface InputPT extends HTMLInputT {
   error: boolean
 }
 
-export const Input: FC<InputPT> = ({ value, changeValue, error }) => {
+export const Input: FC<InputPT> = ({ value, changeValue, error, type, ...restProps }) => {
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => changeValue(+e.currentTarget.value)
-  return <StyledInput type={'number'} value={value} onChange={handleOnChange} $error={error} />
+  return (
+    <StyledInput
+      type={type}
+      value={value}
+      onChange={handleOnChange}
+      $error={error}
+      {...restProps}
+    />
+  )
 }
 
 const StyledInput = styled.input<{ $error: boolean }>`

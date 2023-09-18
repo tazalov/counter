@@ -6,7 +6,6 @@ type SetterFormPT = {
   title: string
   value: number
   changeValue: (value: number) => void
-  placeholder: string
   error: string
 }
 
@@ -14,7 +13,7 @@ export const SetterForm: FC<SetterFormPT> = ({ title, value, changeValue, error 
   return (
     <Common.Form>
       <Common.Title>{title}</Common.Title>
-      <Input value={value} changeValue={changeValue} error={!!error} />
+      <Input type={'number'} value={value} changeValue={changeValue} error={!!error} />
     </Common.Form>
   )
 }
