@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Button } from '../components/button/Button'
 import { Counter } from '../pages/counter'
-import { Counter2 } from '../pages/counter2/Counter2'
+import { Counter2 } from '../pages/counter2'
 import { S } from './App.styled'
 
 interface AppPT {
@@ -17,7 +17,7 @@ export const App: FC<AppPT> = ({ toggleTheme }) => {
       </Button>
       <S.Counters $justify={'center'} $gap={'10px'} $wrap={'wrap'} $direction={'column'}>
         <Counter />
-        {/*        <Counter2 />*/}
+        <Counter2 />
       </S.Counters>
     </S.App>
   )

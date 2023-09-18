@@ -21,9 +21,19 @@ const Text = css`
   font-weight: bold;
 `
 
+const CounterBlock = css`
+  ${Shadow};
+  border-radius: 10px;
+  background-color: ${props => props.theme.secondaryBg};
+  padding: 10px;
+  max-width: min-content;
+  min-width: 400px;
+`
+
 export const Frag = {
   Subtitle,
   Shadow,
   Border,
   Text,
+  CounterBlock,
 }
