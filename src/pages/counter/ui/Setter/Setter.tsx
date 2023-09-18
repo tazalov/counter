@@ -1,6 +1,8 @@
 import { ChangeEvent, FC, useState } from 'react'
 import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
+import { Common } from '../../../../app/styles/Common.styled'
 import { Button } from '../../../../components/button/Button'
+import { SetterForm } from '../../../../components/setter-form/SetterForm'
 import { changeMax, changeMin } from '../../model/actions/counter.actions'
 import { S } from './Setter.styled'
 
@@ -45,31 +47,25 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
     toggleIsData()
   }
   return (
-    <S.Setter $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
-      <S.Form>
-        <S.Title>MIN</S.Title>
-        <S.Input
-          type="number"
-          value={min}
-          onChange={changeMinHandler}
-          placeholder={'enter min'}
-          $error={error}
-        />
-      </S.Form>
-      <S.Form>
-        <S.Title>MAX</S.Title>
-        <S.Input
-          type="number"
-          value={max}
-          onChange={changeMaxHandler}
-          placeholder={'enter max'}
-          $error={error}
-        />
-      </S.Form>
+    <Common.FlexWrapper $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
+      <SetterForm
+        title={'MIN'}
+        value={min}
+        onChange={changeMinHandler}
+        placeholder={'enter min'}
+        error={error}
+      />
+      <SetterForm
+        title={'MAX'}
+        value={max}
+        onChange={changeMaxHandler}
+        placeholder={'enter max'}
+        error={error}
+      />
       {error && <S.Error>{error}</S.Error>}
       <Button callback={setData} disabled={min >= max || !!error}>
         SET DATA
       </Button>
-    </S.Setter>
+    </Common.FlexWrapper>
   )
 }

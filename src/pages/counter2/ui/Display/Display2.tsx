@@ -32,10 +32,10 @@ export const Display2: FC<DisplayPT> = ({
         <S.Text>input data in counter</S.Text>
       ) : (
         <>
-          <S.Count $current={current} $max={max}>
+          <Common.CounterDisplay $current={current} $max={max}>
             {current}
-          </S.Count>
-          <S.Buttons $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
+          </Common.CounterDisplay>
+          <Common.Buttons $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
             <Common.FlexWrapper $align={'center'} $justify={'center'} $gap={'10px'}>
               <Button callback={incr} disabled={!dataIsSet || current >= max}>
                 incr
@@ -47,7 +47,7 @@ export const Display2: FC<DisplayPT> = ({
                 reset
               </Button>
             </Common.FlexWrapper>
-          </S.Buttons>
+          </Common.Buttons>
         </>
       )}
     </S.Display>

@@ -1,6 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
 import { Button } from '../../../../components/button/Button'
+import { SetterForm } from '../../../../components/setter-form/SetterForm'
 import { changeMax2, changeMin2, toggleDataSet2 } from '../../model/actions/counter2.actions'
 import { S } from './Setter2.styled'
 
@@ -48,26 +49,20 @@ export const Setter2: FC<SetterPT> = ({ min, max, error, setError }) => {
 
   return (
     <S.Setter $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
-      <S.Form>
-        <S.Title>MIN</S.Title>
-        <S.Input
-          type="number"
-          value={min}
-          onChange={changeMinHandler}
-          placeholder={'enter min'}
-          $error={error}
-        />
-      </S.Form>
-      <S.Form>
-        <S.Title>MAX</S.Title>
-        <S.Input
-          type="number"
-          value={max}
-          onChange={changeMaxHandler}
-          placeholder={'enter max'}
-          $error={error}
-        />
-      </S.Form>
+      <SetterForm
+        title={'MIN'}
+        value={min}
+        onChange={changeMinHandler}
+        placeholder={'enter min'}
+        error={error}
+      />
+      <SetterForm
+        title={'MAX'}
+        value={max}
+        onChange={changeMaxHandler}
+        placeholder={'enter max'}
+        error={error}
+      />
       <Button callback={deactivateEditMode} disabled={min >= max || !!error}>
         SET DATA
       </Button>
