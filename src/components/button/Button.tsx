@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 
-type ButtonPT = {
+interface ButtonPT {
   children: ReactNode
   callback: () => void
   disabled?: boolean

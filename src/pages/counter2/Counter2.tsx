@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Common } from '../../components/styled/Common.styled'
+import { Common } from '../../app/styles/Common.styled'
 import { Display2 } from './Display2'
 import { Setter2 } from './Setter2'
 

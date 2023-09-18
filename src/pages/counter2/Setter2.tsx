@@ -1,8 +1,8 @@
 import { ChangeEvent, FC } from 'react'
 import styled, { css } from 'styled-components'
 import { Button } from '../../components/button/Button'
-import { Common } from '../../components/styled/Common.styled'
-import { Frag } from '../../components/styled/Fragments.styled'
+import { Common } from '../../app/styles/Common.styled'
+import { Frag } from '../../app/styles/Fragments.styled'
 
 type SetterPT = {
   min: number

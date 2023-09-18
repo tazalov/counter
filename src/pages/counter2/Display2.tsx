@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../components/button/Button'
-import { Common } from '../../components/styled/Common.styled'
-import { Frag } from '../../components/styled/Fragments.styled'
+import { Common } from '../../app/styles/Common.styled'
+import { Frag } from '../../app/styles/Fragments.styled'
 
 type DisplayPT = {
   min: number
