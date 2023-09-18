@@ -28,7 +28,7 @@ export const Button: FC<ButtonPT> = ({
   )
 }
 
-export type StyledButtonPT = {
+interface StyledButtonPT {
   $border: 'yes' | 'no'
 }
 

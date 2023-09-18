@@ -16,7 +16,7 @@ export const darkTheme = {
   secondaryShadow: 'rgba(191, 250, 228, 0.3)',
 }
 
-export type ThemeT = {
+export interface ThemeT {
   primaryBg: string
   secondaryBg: string
   primaryFont: string

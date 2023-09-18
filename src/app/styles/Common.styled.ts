@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Frag } from './Fragments.styled'
 
 const Container = styled.div`
@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: 0 auto;
 `
 
-type FlexWrapperPT = {
+interface FlexWrapperPT {
   $direction?: string
   $justify?: string
   $align?: string
@@ -62,27 +62,6 @@ const Title = styled.h3`
   text-align: center;
 `
 
-const Input = styled.input<{ $error: string }>`
-  ${Frag.Border};
-  border-radius: 10px;
-  padding: 5px;
-  width: 100%;
-  font-size: 25px;
-  color: ${props => props.theme.primaryFont};
-  background-color: ${props => props.theme.secondaryBg};
-  &:focus-visible {
-    outline: 2px solid ${props => (props.$error ? '#f65757' : 'grey')};
-  }
-  &::placeholder {
-    color: ${props => props.theme.primaryFont};
-  }
-  ${props =>
-    props.$error &&
-    css`
-      border: 3px solid #f65757;
-    `}
-`
-
 export const Common = {
   Container,
   FlexWrapper,
@@ -90,5 +69,4 @@ export const Common = {
   CounterDisplay,
   Form,
   Title,
-  Input,
 }

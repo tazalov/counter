@@ -1,25 +1,20 @@
-import { ChangeEvent, FC } from 'react'
+import { FC } from 'react'
 import { Common } from '../../app/styles/Common.styled'
+import { Input } from '../input/Input'
 
 type SetterFormPT = {
   title: string
   value: number
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  changeValue: (value: number) => void
   placeholder: string
   error: string
 }
 
-export const SetterForm: FC<SetterFormPT> = ({ title, value, onChange, error }) => {
+export const SetterForm: FC<SetterFormPT> = ({ title, value, changeValue, error }) => {
   return (
     <Common.Form>
       <Common.Title>{title}</Common.Title>
-      <Common.Input
-        type="number"
-        value={value}
-        onChange={onChange}
-        placeholder={'enter min'}
-        $error={error}
-      />
+      <Input value={value} changeValue={changeValue} error={!!error} />
     </Common.Form>
   )
 }

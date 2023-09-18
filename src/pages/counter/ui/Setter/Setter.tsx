@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
 import { Common } from '../../../../app/styles/Common.styled'
 import { Button } from '../../../../components/button/Button'
@@ -16,29 +16,30 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
   const dispatch = useAppDispatch()
   const [error, setError] = useState<string>('')
 
-  const changeMinHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    let newMin = +e.currentTarget.value
+  const changeMinHandler = (value: number) => {
     const valueIsMaxSafe = min >= Number.MAX_SAFE_INTEGER
-    const valueIsNotValid = newMin < 0 || newMin >= max || max < 0 || max <= newMin
+    const valueIsNotValid = value < 0 || value >= max || max < 0 || max <= value
+
     if (valueIsNotValid && !valueIsMaxSafe) {
       setError('Incorrect value(s)')
     } else if (valueIsMaxSafe) {
       dispatch(changeMin(0))
     } else {
-      dispatch(changeMin(newMin))
+      dispatch(changeMin(value))
       setError('')
     }
   }
-  const changeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    let newMax = +e.currentTarget.value
+  const changeMaxHandler = (value: number) => {
     const valueIsMaxSafe = max >= Number.MAX_SAFE_INTEGER
-    const valueIsNotValid = min < 0 || min >= newMax || newMax < 0 || newMax <= min
+    const valueIsNotValid = min < 0 || min >= value || value < 0 || value <= min
+
     if (valueIsNotValid && !valueIsMaxSafe) {
       setError('Incorrect value(s)')
     } else if (valueIsMaxSafe) {
+      dispatch(changeMin(0))
       dispatch(changeMax(9))
     } else {
-      dispatch(changeMax(newMax))
+      dispatch(changeMax(value))
       setError('')
     }
   }
@@ -51,14 +52,14 @@ export const Setter: FC<SetterPT> = ({ min, max, toggleIsData }) => {
       <SetterForm
         title={'MIN'}
         value={min}
-        onChange={changeMinHandler}
+        changeValue={changeMinHandler}
         placeholder={'enter min'}
         error={error}
       />
       <SetterForm
         title={'MAX'}
         value={max}
-        onChange={changeMaxHandler}
+        changeValue={changeMaxHandler}
         placeholder={'enter max'}
         error={error}
       />

@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
-import { decrement, increment, resetData, toggleDataSet } from '../../model/actions/counter.actions'
+import { toggleDataSet } from '../../model/actions/counter.actions'
 import { getCounterState } from '../../model/selectors/getCounterState'
 import { Display } from '../Display/Display'
 import { Setter } from '../Setter/Setter'
@@ -26,24 +26,13 @@ export const Counter: FC = () => {
     localStorage.setItem('max', JSON.stringify(max))
   }, [current, min, max])*/
 
-  const incrCount = () => dispatch(increment())
-  const decrCount = () => dispatch(decrement())
-  const reset = () => dispatch(resetData())
   const toggleIsData = () => dispatch(toggleDataSet())
 
   return (
     <S.Counter>
       {!dataIsSet && <Setter min={min} max={max} toggleIsData={toggleIsData} />}
       {dataIsSet && (
-        <Display
-          min={min}
-          max={max}
-          current={currentValue}
-          incr={incrCount}
-          decr={decrCount}
-          reset={reset}
-          toggleIsData={toggleIsData}
-        />
+        <Display min={min} max={max} current={currentValue} toggleIsData={toggleIsData} />
       )}
     </S.Counter>
   )
