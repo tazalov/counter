@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/incubator_counter/static/js/main.ea52b249.js",
+    "index.html": "/incubator_counter/index.html",
+    "main.ea52b249.js.map": "/incubator_counter/static/js/main.ea52b249.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ea52b249.js"
+  ]
+}
