@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Button } from '../components/button/Button'
 import { Counter } from '../pages/counter'
-import { CounterTwo } from '../pages/counter2'
+import { CounterTwo } from '../pages/counterTwo'
 import { S } from './App.styled'
 
 interface AppPT {
