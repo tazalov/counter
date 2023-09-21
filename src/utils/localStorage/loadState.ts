@@ -2,7 +2,7 @@ import type { RootState } from '../../app/providers/store-provider/types/store.t
 
 export const loadState = (): undefined | RootState => {
   try {
-    const serialisedState = localStorage.getItem('counter-state')
+    const serialisedState = localStorage.getItem('counter-state-tazalov')
     if (serialisedState === null) return undefined
     return JSON.parse(serialisedState)
   } catch (e) {
