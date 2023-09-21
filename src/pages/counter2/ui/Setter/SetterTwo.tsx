@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
   ChangeDataSet,
@@ -8,37 +8,46 @@ import {
 } from '../../../../app/model/actions/counter.actions'
 import { getError, getMax, getMin } from '../../../../app/model/selectors/counter.selectors'
 import { useAppDispatch } from '../../../../app/providers/store-provider/config/store'
-import { Common } from '../../../../app/styles/Common.styled'
 import { Button } from '../../../../components/button/Button'
 import { SetterForm } from '../../../../components/setter-form/SetterForm'
 import { validateValues } from '../../../../utils/validators/validateValues'
-import { S } from './Setter.styled'
+import { S } from './SetterTwo.styled'
 
-export const Setter: FC = () => {
-  console.log('setter')
-  const dispatch = useAppDispatch()
+export const SetterTwo: FC = () => {
+  console.log('setter two')
   const min = useSelector(getMin)
   const max = useSelector(getMax)
   const error = useSelector(getError)
 
-  const setData = () => dispatch(ChangeDataSet(true))
+  const [currentMin, setCurrentMin] = useState(min)
+  const [currentMax, setCurrentMax] = useState(max)
+
+  const dispatch = useAppDispatch()
+
+  const activateEditMode = () => dispatch(ChangeDataSet(false))
+
+  const setData = () => {
+    dispatch(ChangeDataSet(true))
+    dispatch(ChangeMin(currentMin))
+    dispatch(ChangeMax(currentMax))
+  }
 
   const handleChangeMin = (value: number) => {
-    const valueIsValid = validateValues(value, max)
+    activateEditMode()
+    const valueIsValid = validateValues(value, currentMax)
 
     if (valueIsValid) {
-      dispatch(ChangeMin(value))
-      dispatch(SetError(''))
+      setCurrentMin(value)
     } else {
       dispatch(SetError('Attempt to set an incorrect value'))
     }
   }
   const handleChangeMax = (value: number) => {
-    const valueIsValid = validateValues(min, value)
+    activateEditMode()
+    const valueIsValid = validateValues(currentMin, value)
 
     if (valueIsValid) {
-      dispatch(ChangeMax(value))
-      dispatch(SetError(''))
+      setCurrentMax(value)
     } else {
       dispatch(SetError('Attempt to get an incorrect value'))
     }
@@ -55,13 +64,12 @@ export const Setter: FC = () => {
   }, [error, dispatch])
 
   return (
-    <Common.FlexWrapper $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
-      <SetterForm title={'MIN'} value={min} changeValue={handleChangeMin} error={error} />
-      <SetterForm title={'MAX'} value={max} changeValue={handleChangeMax} error={error} />
-      {error && <S.Error>{error}</S.Error>}
-      <Button callback={setData} disabled={min >= max || !!error}>
+    <S.Setter $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
+      <SetterForm title={'MIN'} value={currentMin} changeValue={handleChangeMin} error={error} />
+      <SetterForm title={'MAX'} value={currentMax} changeValue={handleChangeMax} error={error} />
+      <Button callback={setData} disabled={currentMin >= currentMax || !!error}>
         SET DATA
       </Button>
-    </Common.FlexWrapper>
+    </S.Setter>
   )
 }

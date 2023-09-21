@@ -2,9 +2,10 @@ import { CounterAT, CounterST } from '../types/counter.types'
 
 const initialState: CounterST = {
   min: 0,
-  max: 0,
+  max: 1,
   currentValue: 0,
   dataIsSet: false,
+  error: '',
 }
 
 export const counterReducer = (state = initialState, action: CounterAT) => {
@@ -27,10 +28,10 @@ export const counterReducer = (state = initialState, action: CounterAT) => {
         currentValue: state.min,
       }
     }
-    case 'counter/toggleDataSet': {
+    case 'counter/changeDataSet': {
       return {
         ...state,
-        dataIsSet: !state.dataIsSet,
+        dataIsSet: action.isDataSet,
         currentValue: state.min,
       }
     }
@@ -45,6 +46,12 @@ export const counterReducer = (state = initialState, action: CounterAT) => {
       return {
         ...state,
         max: action.max,
+      }
+    }
+    case 'counter/setError': {
+      return {
+        ...state,
+        error: action.error,
       }
     }
     default: {

@@ -1,22 +1,29 @@
 import { FC } from 'react'
-import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
+import { useSelector } from 'react-redux'
+import {
+  ChangeDataSet,
+  Decrement,
+  Increment,
+  ResetData,
+} from '../../../../app/model/actions/counter.actions'
+import { getCurrent, getMax, getMin } from '../../../../app/model/selectors/counter.selectors'
+import { useAppDispatch } from '../../../../app/providers/store-provider/config/store'
 import { Button } from '../../../../components/button/Button'
 import { Common } from '../../../../app/styles/Common.styled'
-import { decrement, increment, resetData } from '../../model/actions/counter.actions'
 
-interface DisplayPT {
-  min: number
-  max: number
-  current: number
-  toggleIsData: () => void
-}
-
-export const Display: FC<DisplayPT> = ({ min, max, current, toggleIsData }) => {
+export const Display: FC = () => {
+  console.log('display')
   const dispatch = useAppDispatch()
 
-  const incrCount = () => dispatch(increment())
-  const decrCount = () => dispatch(decrement())
-  const reset = () => dispatch(resetData())
+  const min = useSelector(getMin)
+  const max = useSelector(getMax)
+  const current = useSelector(getCurrent)
+
+  const changeData = () => dispatch(ChangeDataSet(false))
+
+  const incrCount = () => dispatch(Increment())
+  const decrCount = () => dispatch(Decrement())
+  const reset = () => dispatch(ResetData())
   return (
     <Common.FlexWrapper $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
       <Common.CounterDisplay $current={current} $max={max}>
@@ -35,7 +42,7 @@ export const Display: FC<DisplayPT> = ({ min, max, current, toggleIsData }) => {
           <Button callback={reset} disabled={current === min}>
             reset
           </Button>
-          <Button callback={toggleIsData}>change data</Button>
+          <Button callback={changeData}>change data</Button>
         </Common.FlexWrapper>
       </Common.Buttons>
     </Common.FlexWrapper>

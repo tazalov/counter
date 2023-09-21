@@ -1,10 +1,12 @@
-import { combineReducers, createStore } from 'redux'
-import { counterReducer } from '../../../../pages/counter'
-import { counterReducer2 } from '../../../../pages/counter2'
+import { useDispatch } from 'react-redux'
+import { combineReducers, legacy_createStore } from 'redux'
+import { counterReducer } from '../../../model/reducer/counter.reducer'
+import { AppDispatch } from '../types/store.types'
 
 const rootReducer = combineReducers({
   counter: counterReducer,
-  counter2: counterReducer2,
 })
 
-export const store = createStore(rootReducer)
+export const store = legacy_createStore(rootReducer)
+
+export const useAppDispatch: () => AppDispatch = useDispatch

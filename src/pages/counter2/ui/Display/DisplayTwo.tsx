@@ -1,24 +1,32 @@
 import { FC } from 'react'
-import { useAppDispatch } from '../../../../app/providers/store-provider/types/store.types'
+import { useSelector } from 'react-redux'
+import { Decrement, Increment, ResetData } from '../../../../app/model/actions/counter.actions'
+import {
+  getCurrent,
+  getError,
+  getIsDataSet,
+  getMax,
+  getMin,
+} from '../../../../app/model/selectors/counter.selectors'
+import { useAppDispatch } from '../../../../app/providers/store-provider/config/store'
 import { Button } from '../../../../components/button/Button'
 import { Common } from '../../../../app/styles/Common.styled'
-import { decrement2, increment2, resetData2 } from '../../model/actions/counter2.actions'
-import { S } from './Display2.styled'
+import { S } from './DisplayTwo.styled'
 
-interface DisplayPT {
-  min: number
-  max: number
-  current: number
-  dataIsSet: boolean
-  error: string
-}
-
-export const Display2: FC<DisplayPT> = ({ min, max, current, dataIsSet, error }) => {
+export const DisplayTwo: FC = () => {
+  console.log('display two')
   const dispatch = useAppDispatch()
 
-  const incrCount = () => dispatch(increment2())
-  const decrCount = () => dispatch(decrement2())
-  const reset = () => dispatch(resetData2())
+  const incrCount = () => dispatch(Increment())
+  const decrCount = () => dispatch(Decrement())
+  const reset = () => dispatch(ResetData())
+
+  const min = useSelector(getMin)
+  const max = useSelector(getMax)
+  const current = useSelector(getCurrent)
+  const error = useSelector(getError)
+  const dataIsSet = useSelector(getIsDataSet)
+
   return (
     <S.Display $direction={'column'} $align={'center'} $justify={'center'} $gap={'20px'}>
       {error ? (
